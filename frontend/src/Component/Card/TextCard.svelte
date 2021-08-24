@@ -28,6 +28,10 @@
   }
 
   .card {
+    outline-style: auto;
+    outline-width: 1px;
+    outline-color: black;
+    background-color: #ffa;
     text-align: center;
     box-shadow: 0 4px 8px 0 rgba(255, 0, 0, 0.2);
     transition: 0.8s;
