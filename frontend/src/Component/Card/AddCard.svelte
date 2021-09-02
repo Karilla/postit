@@ -15,6 +15,23 @@
       m.data = message
       return m
     })
+    let payload = {
+      title: title,
+      data: message,
+    }
+
+    fetch('http://localhost:4000/api/text-post', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'post',
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+      })
     console.log(title + ' ' + message)
   }
 </script>
@@ -41,7 +58,14 @@
       Title
       <input type="text" bind:value={title} placeholder="Post it title" />
     </label>
-    <textarea name="" id="" cols="30" rows="5" bind:value={message} />
+    <textarea
+      style="resize: none;"
+      name=""
+      id=""
+      cols="30"
+      rows="5"
+      bind:value={message}
+    />
   {:else if radioChoice === IMAGE}
     <h1 class="formTitle">Image Post it</h1>
     <label class="textTitle">

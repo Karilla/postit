@@ -6,9 +6,9 @@
   import { textPostitStore } from '../store'
   let cards = []
 
-  let isForm = false
+  let postItNumber = 0
 
-  let letsTry
+  let isForm = false
 
   textPostitStore.subscribe((value) => {
     let postit = value
@@ -18,7 +18,9 @@
       !(postit.title == undefined) &&
       !(postit.data == undefined)
     ) {
+      postItNumber++
       cards.push({
+        id: postItNumber,
         type: 'text',
         title: postit.title,
         data: postit.data,
@@ -38,10 +40,12 @@
   */
 </script>
 
+<h1>Number of post it {postItNumber}</h1>
+
 <div class="container">
   {#each cards as card}
     {#if card.type == 'text'}
-      <TextCard title={card.title} data={card.data} />
+      <TextCard title={card.title} data={card.data} id={card.id} />
     {:else if card.type == 'audio'}
       <AudioCard />
     {:else if card.type == 'image'}

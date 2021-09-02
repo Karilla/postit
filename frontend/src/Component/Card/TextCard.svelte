@@ -1,15 +1,35 @@
 <script>
   export let title
   export let data
+  export let id
+
+  function handleModifyButton() {
+    var payload = {
+      data: 'CACA SEIGNEUR',
+    }
+
+    fetch('http://localhost:4000/api/text-post', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'post',
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+      })
+  }
 </script>
 
 <div class="card">
-  <h1>{title}</h1>
+  <h1>{title} {id}</h1>
   <p>
     {data}
   </p>
   <footer>
-    <button>Modifier</button>
+    <button on:click={handleModifyButton}>Modifier</button>
     <button>Supprimer</button>
   </footer>
 </div>
