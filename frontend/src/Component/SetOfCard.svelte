@@ -3,6 +3,7 @@
   import AudioCard from './Card/AudioCard.svelte'
   import TextCard from './Card/TextCard.svelte'
   import AddCard from './Card/AddCard.svelte'
+  import { onMount } from 'svelte'
   import { textPostitStore } from '../store'
   let cards = []
 
@@ -30,6 +31,29 @@
     isForm = false
   })
 
+  onMount(async () => {
+    loadCards()
+  })
+
+  function loadCards() {
+    console.log('logging')
+    fetch('http://localhost:4000/api')
+      .then((data) => data.json())
+      .then((data) => {
+        data.forEach((item) => {
+          console.log(item['id'])
+          cards.push({
+            id: item['id'],
+            type: 'text',
+            title: item['title'],
+            data: item['data'],
+          })
+          cards = cards
+        })
+      })
+    cards = cards
+  }
+
   async function handleAddButton() {
     isForm = true
   }
@@ -39,8 +63,6 @@
   }
   */
 </script>
-
-<h1>Number of post it {postItNumber}</h1>
 
 <div class="container">
   {#each cards as card}

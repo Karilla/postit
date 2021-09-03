@@ -4,16 +4,12 @@
   export let id
 
   function handleModifyButton() {
-    fetch('http://localhost:4000/api')
-      .then((data) => data.json())
-      .then((data) => {
-        console.log(data)
-      })
+    console.log(id)
   }
 </script>
 
 <div class="card">
-  <h1>{title} {id}</h1>
+  <h1>{title}</h1>
   <p>
     {data}
   </p>
