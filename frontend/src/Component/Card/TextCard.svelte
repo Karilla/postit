@@ -4,19 +4,8 @@
   export let id
 
   function handleModifyButton() {
-    var payload = {
-      data: 'CACA SEIGNEUR',
-    }
-
-    fetch('http://localhost:4000/api/text-post', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      method: 'post',
-      body: JSON.stringify(payload),
-    })
-      .then((response) => response.json())
+    fetch('http://localhost:4000/api')
+      .then((data) => data.json())
       .then((data) => {
         console.log(data)
       })

@@ -4,7 +4,7 @@ var TextPostIt = require('../models/text-postit')
 
 /* GET home page. */
 router.get('/', function (req, res) {
-  res.send({ data: 'Hello World Comment vas tu ?' })
+  TextPostIt.findAll().then((data) => res.send(JSON.stringify(data, null, 2)))
 })
 
 /* POST All PostIt*/
