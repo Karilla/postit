@@ -1,3 +1,2 @@
 node_modules
-*.sqlite
-/dev.sqlite
+backend/dev.sqlite

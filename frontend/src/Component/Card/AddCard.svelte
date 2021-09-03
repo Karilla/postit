@@ -1,5 +1,6 @@
 <script>
   import { textPostitStore } from '../../store'
+  import { createEventDispatcher } from 'svelte'
 
   let radioChoice = 1
   const AUDIO = 1
@@ -9,30 +10,13 @@
   let title
   let message
 
+  const createTextPostIt = createEventDispatcher()
+
   function handleApplyButton() {
-    textPostitStore.update((m) => {
-      m.title = title
-      m.data = message
-      return m
-    })
-    let payload = {
+    createTextPostIt('addTextPostIt', {
       title: title,
       data: message,
-    }
-
-    fetch('http://localhost:4000/api/text-post', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      method: 'post',
-      body: JSON.stringify(payload),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-      })
-    console.log(title + ' ' + message)
   }
 </script>
 

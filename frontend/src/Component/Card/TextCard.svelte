@@ -1,10 +1,19 @@
 <script>
+  import { createEventDispatcher } from 'svelte'
   export let title
   export let data
   export let id
 
+  const dispatch = createEventDispatcher()
+
   function handleModifyButton() {
     console.log(id)
+  }
+
+  function handleCancelButton() {
+    dispatch('deletePostIt', {
+      id: id,
+    })
   }
 </script>
 
@@ -14,8 +23,8 @@
     {data}
   </p>
   <footer>
-    <button on:click={handleModifyButton}>Modifier</button>
-    <button>Supprimer</button>
+    <button on:click|preventDefault={handleModifyButton}>Modifier</button>
+    <button on:click={handleCancelButton}>Supprimer</button>
   </footer>
 </div>
 

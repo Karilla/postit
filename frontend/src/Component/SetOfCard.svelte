@@ -4,38 +4,16 @@
   import TextCard from './Card/TextCard.svelte'
   import AddCard from './Card/AddCard.svelte'
   import { onMount } from 'svelte'
-  import { textPostitStore } from '../store'
   let cards = []
 
-  let postItNumber = 0
-
   let isForm = false
-
-  textPostitStore.subscribe((value) => {
-    let postit = value
-    console.log(postit)
-    if (
-      !(postit.title == 'Null') &&
-      !(postit.title == undefined) &&
-      !(postit.data == undefined)
-    ) {
-      postItNumber++
-      cards.push({
-        id: postItNumber,
-        type: 'text',
-        title: postit.title,
-        data: postit.data,
-      })
-      cards = cards
-    }
-    isForm = false
-  })
 
   onMount(async () => {
     loadCards()
   })
 
   function loadCards() {
+    cards = []
     console.log('logging')
     fetch('http://localhost:4000/api')
       .then((data) => data.json())
@@ -51,7 +29,34 @@
           cards = cards
         })
       })
-    cards = cards
+  }
+
+  function handleDeletePostIt(event) {
+    console.log('Supprimer')
+    fetch(`http://localhost:4000/api/delete-text/${event.detail.id}`)
+    loadCards()
+  }
+
+  function handleAddTextPostIt(event) {
+    console.log('alors')
+    let payload = {
+      title: event.detail.title,
+      data: event.detail.data,
+    }
+    fetch('http://localhost:4000/api/text-post', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'post',
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+      })
+    isForm = false
+    loadCards()
   }
 
   async function handleAddButton() {
@@ -67,7 +72,12 @@
 <div class="container">
   {#each cards as card}
     {#if card.type == 'text'}
-      <TextCard title={card.title} data={card.data} id={card.id} />
+      <TextCard
+        title={card.title}
+        data={card.data}
+        id={card.id}
+        on:deletePostIt={handleDeletePostIt}
+      />
     {:else if card.type == 'audio'}
       <AudioCard />
     {:else if card.type == 'image'}
@@ -76,10 +86,10 @@
   {/each}
 
   {#if isForm}
-    <AddCard />
+    <AddCard on:addTextPostIt={handleAddTextPostIt} />
   {:else}
     <div class="addButton">
-      <button class="addButton" on:click={handleAddButton}>
+      <button class="addButton" on:click|preventDefault={handleAddButton}>
         <span id="textButton">+</span>
       </button>
     </div>

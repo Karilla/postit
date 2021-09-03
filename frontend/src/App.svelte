@@ -1,5 +1,6 @@
 <script>
   import SetOfCard from './Component/SetOfCard.svelte'
+  document.title = 'Post it App'
 </script>
 
 <main>
@@ -17,7 +18,13 @@
   main {
     padding: 1em;
     margin: 0px;
+    height: 100%;
+    width: 100%;
     font-family: 'Roboto', sans-serif;
+  }
+
+  body {
+    background-color: #f4edde;
   }
 
   h1 {
