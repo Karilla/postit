@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/9924595e-b621-420f-957c-4e43cb22d611/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/backend-postit",
+  "appService.deploySubpath": "."
+}

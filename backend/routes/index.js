@@ -35,4 +35,23 @@ router.get('/delete-text/:id', function (req, res) {
   })
 })
 
+router.put('/modify-postit', function (req, res) {
+  var id = req.body['id']
+  var newTitle = req.body['newTitle']
+  var newData = req.body['newData']
+  console.log(id + ' ' + newTitle + ' ' + newData)
+  TextPostIt.update(
+    {
+      title: newTitle,
+      data: newData,
+    },
+    {
+      where: {
+        id: id,
+      },
+    }
+  )
+  res.send({ message: 'CACA DANS LES RAVIOLIS' })
+})
+
 module.exports = router

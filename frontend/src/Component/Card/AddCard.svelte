@@ -1,5 +1,4 @@
 <script>
-  import { textPostitStore } from '../../store'
   import { createEventDispatcher } from 'svelte'
 
   let radioChoice = 1

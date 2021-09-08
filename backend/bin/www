@@ -12,7 +12,7 @@ var http = require('http')
  */
 
 var port = normalizePort('4000')
-app.set('port', port)
+app.set('port', process.env.PORT || 4000)
 
 console.log('Port is ' + port)
 
@@ -26,7 +26,7 @@ var server = http.createServer(app)
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(4000)
+server.listen(port)
 console.log('xx')
 server.on('error', onError)
 console.log('yo')

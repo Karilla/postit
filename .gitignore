@@ -37,4 +37,4 @@ public/assets
 # Ignore simplecov results
 coverage
 
- 
+ backend/dev.sqlite

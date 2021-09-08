@@ -59,6 +59,29 @@
     loadCards()
   }
 
+  function handleModifyPostIt(event) {
+    var payload = {
+      id: event.detail.id,
+      newTitle: event.detail.newTitle,
+      newData: event.detail.newData,
+    }
+
+    fetch('http://localhost:4000/api/modify-postit', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'put',
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+      })
+
+    loadCards()
+  }
+
   async function handleAddButton() {
     isForm = true
   }
@@ -77,6 +100,7 @@
         data={card.data}
         id={card.id}
         on:deletePostIt={handleDeletePostIt}
+        on:modifiyPostIt={handleModifyPostIt}
       />
     {:else if card.type == 'audio'}
       <AudioCard />
