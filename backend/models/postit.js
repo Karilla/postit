@@ -1,10 +1,13 @@
 const { Model, DataTypes } = require('sequelize')
 const sequelize = require('../config/database')
 
-class TextPostIt extends Model {}
+class PostIt extends Model {}
 
-TextPostIt.init(
+PostIt.init(
   {
+    type: {
+      type: DataTypes.STRING,
+    },
     title: {
       type: DataTypes.STRING,
     },
@@ -14,8 +17,8 @@ TextPostIt.init(
   },
   {
     sequelize,
-    modelName: 'text-postit',
+    modelName: 'postit',
   }
 )
 
-module.exports = TextPostIt
+module.exports = PostIt

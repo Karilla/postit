@@ -5,8 +5,12 @@ var cors = require('cors')
 var logger = require('morgan')
 
 var sequelize = require('./config/database')
+
+var postIt = require('./models/postit')
+
 sequelize.sync().then(() => console.log('Connected to db'))
-//const TextPostIt = require('./models/text-postit')
+
+postIt.sync()
 
 var indexRouter = require('./routes/index')
 
@@ -18,11 +22,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
-
-app.get('/')
-{
-  console.log('cc')
-}
 
 app.use('/api', indexRouter)
 

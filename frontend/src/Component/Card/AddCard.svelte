@@ -6,16 +6,32 @@
   const TEXT = 2
   const IMAGE = 3
 
+  let imagePreview
+
   let title
   let message
 
   const createTextPostIt = createEventDispatcher()
 
+  function onFileSelected(e) {
+    let image = e.target.files[0]
+    let reader = new FileReader()
+    reader.readAsDataURL(image)
+    reader.onload = (e) => {
+      console.log(e.target.result)
+      imagePreview = e.target.result
+    }
+  }
+
   function handleApplyButton() {
-    createTextPostIt('addTextPostIt', {
-      title: title,
-      data: message,
-    })
+    if (radioChoice === TEXT) {
+      createTextPostIt('addTextPostIt', {
+        title: title,
+        data: message,
+      })
+    } else {
+      console.log('COUCOU')
+    }
   }
 </script>
 
@@ -54,8 +70,13 @@
     <label class="textTitle">
       Title
       <input type="text" placeholder="Post it title" />
+      <div class="image_preview">
+        {#if imagePreview}
+          <img src={imagePreview} alt=" Preview" class="image-preview__image" />
+        {/if}
+      </div>
     </label>
-    <input type="file" accept="image/*" />
+    <input type="file" on:change={(e) => onFileSelected(e)} accept="image/*" />
   {/if}
 
   <div class="centerButton">
@@ -65,9 +86,17 @@
 </div>
 
 <style>
-  img {
-    max-width: 100px;
-    max-height: 100px;
+  .image_preview {
+    max-width: 300px;
+    height: 100px;
+    border: 2px solid #dddddd;
+    margin-bottom: 5px;
+  }
+
+  .image-preview__image {
+    width: 100%;
+    display: flex;
+    height: 100%;
   }
 
   .centerButton {

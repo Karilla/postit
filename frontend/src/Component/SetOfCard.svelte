@@ -22,7 +22,7 @@
           console.log(item['id'])
           cards.push({
             id: item['id'],
-            type: 'text',
+            type: item['type'],
             title: item['title'],
             data: item['data'],
           })

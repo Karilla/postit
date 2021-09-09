@@ -22,6 +22,10 @@ backend/dev.sqlite
 # Ignore PaperClip images
 /public/system
 
+backend/public
+
+/public
+
 # Ignore generated ERD file
 erd.pdf
 
@@ -37,4 +41,4 @@ public/assets
 # Ignore simplecov results
 coverage
 
- backend/dev.sqlite
+backend/dev.sqlite
